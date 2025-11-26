@@ -16,7 +16,7 @@ public class NetworkPlayerLimiterCommand {
 
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
-    @Execute(name = "setLimit")
+    @Execute(name = "setLimit", aliases = {"setlimit"})
     public void setLimit(@Context CommandSource source, @Arg int limit) {
         if (limit < 0) {
             source.sendMessage(miniMessage.deserialize("<red>Limit must be a positive number!</red>"));

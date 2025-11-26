@@ -8,8 +8,11 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import dev.rollczi.litecommands.LiteCommands;
+import dev.rollczi.litecommands.adventure.LiteAdventureExtension;
+import dev.rollczi.litecommands.message.LiteMessages;
 import dev.rollczi.litecommands.velocity.LiteVelocityFactory;
 import lombok.Getter;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.slf4j.Logger;
 import pl.msmaciek.networkplayerlimiter.command.NetworkPlayerLimiterCommand;
 import pl.msmaciek.networkplayerlimiter.config.ConfigManager;
@@ -53,6 +56,15 @@ public class NetworkPlayerLimiter {
 
         liteCommands = LiteVelocityFactory.builder(proxyServer)
             .commands(new NetworkPlayerLimiterCommand())
+            .message(LiteMessages.INVALID_USAGE, usage -> "<red>Invalid command")
+            .message(LiteMessages.MISSING_PERMISSIONS, permission -> "<red>Missing permissions: " + permission.getPermissions().getFirst())
+            .extension(
+                new LiteAdventureExtension<>(), config -> config
+                    .miniMessage(true)
+                    .legacyColor(true)
+                    .colorizeArgument(true)
+                    .serializer(MiniMessage.miniMessage())
+            )
             .build();
 
         logger.info("NetworkPlayerLimiter has been enabled!");
