@@ -10,6 +10,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import pl.msmaciek.networkplayerlimiter.NetworkPlayerLimiter;
 import pl.msmaciek.networkplayerlimiter.config.ConfigManager;
 
+@SuppressWarnings("unused")
 @Command(name = "networkplayerlimiter", aliases = {"npl"})
 @Permission("networkplayerlimiter.admin")
 public class NetworkPlayerLimiterCommand {
