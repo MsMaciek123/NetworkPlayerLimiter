@@ -19,19 +19,9 @@ public class ServerPingListener {
         // Only modify if players info exists
         if (originalPing.getPlayers().isEmpty()) return;
 
-        ServerPing.Players playersOriginal = originalPing.getPlayers().get();
-        ServerPing.Players newPlayers = new ServerPing.Players(
-            playersOriginal.getOnline(),
-            plugin.getConfigManager().getPlayerLimit(),
-            playersOriginal.getSample()
-        );
-
-        ServerPing newPing = new ServerPing(
-            originalPing.getVersion(),
-            newPlayers,
-            originalPing.getDescriptionComponent(),
-            originalPing.getFavicon().orElse(null)
-        );
+        ServerPing newPing = originalPing.asBuilder()
+            .maximumPlayers(plugin.getConfigManager().getPlayerLimit())
+            .build();
 
         event.setPing(newPing);
     }
